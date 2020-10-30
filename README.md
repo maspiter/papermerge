@@ -10,3 +10,12 @@ OCR_DEFAULT_LANGUAGE = "deu"
 Adjust all the your [dbname/dbusername/dbpassword] values with your own.
 
 Edit all share paths with your own. Only the broker queue is using a named volume so db files are stored on the file system of the host.
+
+You need the following subfolders in your papermerge docker folder:
+
+/path/share/docker/papermerge/media
+/path/share/docker/papermerge/config
+/path/share/docker/papermerge/backup
+/path/share/docker/papermerge/postgresdata
+
+And one share for the scanned or networkshare imports.
