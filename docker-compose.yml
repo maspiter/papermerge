@@ -7,7 +7,7 @@ services:
       - "8000:8000"
     depends_on:
       - papermergedb
-    command: ["/opt/app/wait-for-it.sh", "-s", "-t", "60", "db:5432", "--", "/opt/app/startup.sh"]
+    command: ["/opt/app/wait-for-it.sh", "-s", "-t", "60", "papermergedb:5432", "--", "/opt/app/startup.sh"]
     volumes:
       - broker_queue:/opt/app/queue
       - /path/share/docker/papermerge/media:/opt/media
@@ -34,7 +34,7 @@ services:
     container_name: papermerge_worker
     depends_on:
       - papermergedb
-    command: ["/opt/app/wait-for-it.sh", "-s", "-t", "60", "db:5432", "--", "/opt/app/startup.sh"]
+    command: ["/opt/app/wait-for-it.sh", "-s", "-t", "60", "papermergedb:5432", "--", "/opt/app/startup.sh"]
     volumes:
       - /path/yourshare/import:/opt/papermerge/import
       - broker_queue:/opt/app/
