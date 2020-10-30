@@ -1,0 +1,52 @@
+version: '3.7'
+services:
+  papermergeapp:
+    image: maspiter/papermerge-app:1.5.0
+    container_name: papermerge_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - papermergedb
+    command: ["/opt/app/wait-for-it.sh", "-s", "-t", "60", "db:5432", "--", "/opt/app/startup.sh"]
+    volumes:
+      - broker_queue:/opt/app/queue
+      - /path/share/docker/papermerge/media:/opt/media
+      - /path/share/docker/papermerge/config/app.production.py:/opt/app/config/settings/production.py
+      - /path/share/docker/papermerge/config/papermerge.app.config.py:/opt/app/papermerge.conf.py
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - POSTGRES_USER=yourdbuser
+      - POSTGRES_PASSWORD=yourdbpassword
+      - POSTGRES_DB=yourdbname
+      - POSTGRES_HOST=papermergedb
+      - POSTGRES_PORT=5432
+  papermergedb:
+    image: postgres:13.0
+    container_name: postgres_papermerge_db
+    volumes:
+      - /path/yourshare/docker/postgresdata:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=yourdbuser
+      - POSTGRES_PASSWORD=yourdbpassword
+      - POSTGRES_DB=yourdbname
+  papermergeworker:
+    image: maspiter/papermerge-worker:1.5.0
+    container_name: papermerge_worker
+    depends_on:
+      - papermergedb
+    command: ["/opt/app/wait-for-it.sh", "-s", "-t", "60", "db:5432", "--", "/opt/app/startup.sh"]
+    volumes:
+      - /path/yourshare/Import:/opt/papermerge/import
+      - broker_queue:/opt/app/
+      - /path/yourshare/docker/papermerge/media:/opt/media
+      - /path/yourshare/docker/papermerge/config/worker.production.py:/opt/app/config/settings/production.py
+      - /path/yourshare/docker/papermerge/config/papermerge.worker.config.py:/opt/app/papermerge.conf.py
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - POSTGRES_USER=yourdbuser
+      - POSTGRES_PASSWORD=yourdbpassword
+      - POSTGRES_DB=yourdbname
+      - POSTGRES_HOST=papermergedb
+      - POSTGRES_PORT=5432      
+volumes:
+  broker_queue:
