@@ -15,7 +15,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('POSTGRES_DB', ‘yourdbname),
-        'USER': os.environ.get('POSTGRES_USER', ‘yo’urdbuser),
+        'USER': os.environ.get('POSTGRES_USER', ‘yourdbuser),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ‘yourdbpassword),
         'HOST': os.environ.get('POSTGRES_HOST', ‘papermergedb'),
         'PORT': os.environ.get('POSTGRES_PORT', 5432),
