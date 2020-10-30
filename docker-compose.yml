@@ -13,6 +13,7 @@ services:
       - /path/share/docker/papermerge/media:/opt/media
       - /path/share/docker/papermerge/config/app.production.py:/opt/app/config/settings/production.py
       - /path/share/docker/papermerge/config/papermerge.app.config.py:/opt/app/papermerge.conf.py
+      - /path/share/docker/papermerge/backup:/opt/backup
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - POSTGRES_USER=yourdbuser
