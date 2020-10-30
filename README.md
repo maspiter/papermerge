@@ -7,4 +7,6 @@ You can adjust the default language in the papermerge.[app/worker].config.py fil
 
 OCR_DEFAULT_LANGUAGE = "deu"
 
-Adjust all the your[dbname/dbusername/dbpassword] values with your own.
+Adjust all the your [dbname/dbusername/dbpassword] values with your own.
+
+Edit all share paths with your own. Only the broker queue is using a named volume so db files are stored on the file system of the host.
