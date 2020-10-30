@@ -36,7 +36,7 @@ services:
       - papermergedb
     command: ["/opt/app/wait-for-it.sh", "-s", "-t", "60", "db:5432", "--", "/opt/app/startup.sh"]
     volumes:
-      - /path/yourshare/Import:/opt/papermerge/import
+      - /path/yourshare/import:/opt/papermerge/import
       - broker_queue:/opt/app/
       - /path/yourshare/docker/papermerge/media:/opt/media
       - /path/yourshare/docker/papermerge/config/worker.production.py:/opt/app/config/settings/production.py
